@@ -1,5 +1,5 @@
 const express = require("express");
-
+const pageRouter = require("./routes/pageRouter");
 const app = express();
 const port = 3000;
 
@@ -10,20 +10,11 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // Routes
-app.get("/", (req, res) => {
-  res.status(200).render("index", { pageName: "index" });
-});
-app.get("/about", (req, res) => {
-  res.status(200).render("about", { pageName: "about" });
-});
-app.get("/courses", (req, res) => {
-  res.status(200).render("courses", { pageName: "courses" });
-});
-app.get("/dashboard", (req, res) => {
-  res.status(200).render("dashboard", { pageName: "dashboard" });
-});
-app.get("/contact", (req, res) => {
-  res.status(200).render("contact", { pageName: "contact" });
+app.use("/", pageRouter);
+
+// Error Handling
+app.use((req, res) => {
+  res.status(404).render("error", { pageName: "error" });
 });
 
 app.listen(port, () => {
