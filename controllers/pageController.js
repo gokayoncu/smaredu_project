@@ -4,12 +4,13 @@ exports.getHomePage = (req, res) => {
 exports.getAboutPage = (req, res) => {
   res.status(200).render("about", { pageName: "about" });
 };
-exports.getCoursesPage = (req, res) => {
-  res.status(200).render("courses", { pageName: "courses" });
+exports.getRegisterPage = (req, res) => {
+  res.status(200).render("register", { pageName: "register" });
 };
-exports.getDashboardPage = (req, res) => {
-  res.status(200).render("dashboard", { pageName: "dashboard" });
+exports.getLoginPage = (req, res) => {
+  res.status(200).render("login", { pageName: "login" });
 };
+
 exports.getContactPage = (req, res) => {
   res.status(200).render("contact", { pageName: "contact" });
 };
