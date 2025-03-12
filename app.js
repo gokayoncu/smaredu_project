@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
-const flash = require('connect-flash');
-require('dotenv').config();
-const methodOverride = require('method-override');
+const MongoStore = require("connect-mongo");
+const flash = require("connect-flash");
+require("dotenv").config();
+const methodOverride = require("method-override");
 const pageRouter = require("./routes/pageRouter");
 const courseRouter = require("./routes/courseRouter");
 const categoryRouter = require("./routes/categoryRouter");
@@ -29,32 +29,34 @@ mongoose
 app.set("view engine", "ejs");
 
 // Global variables
-global.userIn=null; 
+global.userIn = null;
 
 // Middlewares
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  secret: 'my_secret_key',
-  store: MongoStore.create({ mongoUrl: 'mongodb://localhost/smartedu-db' }),
-  resave: false,
-  saveUninitialized: true
-}));
+app.use(
+  session({
+    secret: "my_secret_key",
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(flash());
-app.use((req, res, next)=> {
+app.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
   next();
-})
-app.use(methodOverride('_method', { methods: ['POST', 'GET'] }));
+});
+app.use(methodOverride("_method", { methods: ["POST", "GET"] }));
 
 // Routes
-app.use('*',(req, res,next)=>{
-  global.userIn=req.session.userID;
+app.use("*", (req, res, next) => {
+  global.userIn = req.session.userID;
   next();
-})
+});
 app.use("/", pageRouter);
-app.use("/courses", courseRouter);  
+app.use("/courses", courseRouter);
 app.use("/categories", categoryRouter);
 app.use("/users", userRouter);
 
