@@ -5,8 +5,8 @@ smart_Edu is a comprehensive web application designed for educational institutio
 
 ## Live Demo
 You can access the live version of the application at https://smaredu-project.onrender.com/.
-Admin mail: admin@company.com
-Admin password: 123456
+<br>Admin mail: admin@company.com
+<br>Admin password: 123456
 
 ## Features
 - **User Authentication**: Secure login and registration for users.
