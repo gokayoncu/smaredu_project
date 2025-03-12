@@ -17,6 +17,7 @@ const CourseSchema = new Scheema({
   createdAt: { type: Date, default: Date.now },
   slug: { type: String, unique: true },
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 CourseSchema.pre("save", function (next) {

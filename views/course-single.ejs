@@ -16,11 +16,16 @@
 						</div>
 						<div class="post-content">
 							<div class="post-date">
-								<span class="day"><%= new Date(course.createdAt).getDate().toString().padStart(2, '0') %></span>
-								<span class="month"><%= new Date(course.createdAt).toLocaleString('default', { month: 'short' }) %></span>
+								<% if(loginUser && loginUser.role === 'student' && !loginUser.courses.includes(course._id)) { %>
+									<form action="/courses/enroll" method="POST">
+										<input type="hidden" name="course_id" value="<%= course._id %>">
+										<button type="submit" class="btn btn-sm btn-warning text-white">ENROLLED</button>
+									</form>
+								<% } %>
 							</div>
 							<div class="meta-info-blog">
-								<span><i class="fa fa-calendar"></i> <a href="#"><%= course.createdAt %></a> </span>
+								<span><i class="fa fa-calendar pr-2"></i><span class="day"><%= new Date(course.createdAt).getDate().toString().padStart(2, '0') %></span>
+									<span class="month"><%= new Date(course.createdAt).toLocaleString('default', { month: 'short' }) %></span></span>
 							</div>
 							<div class="blog-title">
 								<h2><a href="#" title=""><%= course.name %></a></h2>
@@ -33,12 +38,11 @@
 					
 					<div class="blog-author">
 						<div class="author-bio">
-							<h3 class="author_name"><a href="#"><%= course.teacher || 'Unknown' %></a></h3>
-							<h5>CEO at <a href="#">SmartEDU</a></h5>
+							<h3 class="author_name"><a href="#"><%= course.user.name || 'Unknown' %></a></h3>
+							<h5><%= course.user.role.charAt(0).toUpperCase() + course.user.role.slice(1)%> at <a href="#">SmartEDU</a></h5>
 							<p class="author_det">
 								Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus omnis saperet docendi nec, eos ea alii molestiae aliquand.
 							</p>
-							<blockquote><%= course.quote || 'Unknown' %></blockquote>
 						</div>
 						<div class="author-desc">
 							<img src="/images/author.jpg" alt="about author">
@@ -54,25 +58,26 @@
 				<div class="col-lg-3 col-12 right-single">
 					<div class="widget-search">
 						<div class="site-search-area">
-							<form method="get" id="site-searchform" action="#">
-								<div>
-									<input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-									<input id="searchsubmit" value="Search" type="submit">
-								</div>
-							</form>
+						  <form method="GET" id="site-searchform" action="/courses">
+							<div>
+							  <input
+								class="input-text form-control"
+								name="search"
+								id="search"
+								placeholder="Search ..."
+								type="text"
+							  />
+							  <button id="searchsubmit" value="Search" type="submit" ></button>
+							</div>
+						  </form>
 						</div>
-					</div>
-					<div class="widget-categories">
+					  </div>
+					  <div class="widget-categories">
 						<h3 class="widget-title">Categories</h3>
-						<ul>
-							<li><a href="#">Political Science</a></li>
-							<li><a href="#">Business Leaders Guide</a></li>
-							<li><a href="#">Become a Product Manage</a></li>
-							<li><a href="#">Language Education</a></li>
-							<li><a href="#">Micro Biology</a></li>
-							<li><a href="#">Social Media Management</a></li>
-						</ul>
-					</div>
+						  <% for (let i=0; i< categories.length; i++) { %>
+						  <li><a href="/courses?categories=<%= categories[i].slug %>"><%= categories[i].name %></a></li>
+						  <% } %>	
+					  </div>
 				</div>
             </div><!-- end row -->
         </div><!-- end container -->

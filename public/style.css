@@ -2413,10 +2413,10 @@ select.mobile-device {
     margin-bottom: 30px;
     border: 1px solid #ebebeb;
     box-sizing: border-box;
-    color: #bcbcbc;
+    color: #000;
     font-size: 16px;
     outline: 0 none;
-    padding: 10px 25px;
+    /* padding: 10px 25px; */
     height: 55px;
     resize: none;
     box-shadow: none !important;
@@ -3823,7 +3823,9 @@ a.link-style3 {
 	background: #eea412;
 	color: #ffffff;
 }
-
+.black-color{
+    color:#000 !important;
+}
 
 .course-item{
 	background: #ffffff;
@@ -3868,19 +3870,4 @@ a.link-style3 {
 .course-meta-bot ul li:hover{
 	color: #eea412;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
