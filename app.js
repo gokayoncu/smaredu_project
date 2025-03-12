@@ -9,7 +9,7 @@ const courseRouter = require("./routes/courseRouter");
 const categoryRouter = require("./routes/categoryRouter");
 const userRouter = require("./routes/userRouter");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
 mongoose
