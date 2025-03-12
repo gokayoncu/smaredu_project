@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+require('dotenv').config();
 const methodOverride = require('method-override');
 const pageRouter = require("./routes/pageRouter");
 const courseRouter = require("./routes/courseRouter");
@@ -13,7 +14,7 @@ const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost/smartedu-db", {
+  .connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
